@@ -75,8 +75,15 @@ var httpResponse = function(socket) {
 			for ( var h in addheaders )
 				this.headers[h.toLowerCase()] = addheaders[h];
 		}
-		for ( var h in this.headers )
-			headers += h+": "+this.headers[h]+"\r\n";
+		for ( var h in this.headers ) {
+			if ( this.headers[h] && this.headers[h] instanceof Array ) {
+				this.headers[h].forEach(function(v){
+					headers += h+": "+v+"\r\n";
+				});
+			}
+			else
+				headers += h+": "+this.headers[h]+"\r\n";
+		}
 
 		// Build the message
 

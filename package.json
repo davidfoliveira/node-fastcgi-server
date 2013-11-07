@@ -1,0 +1,23 @@
+{
+"author": "David Oliveira <d.oliveira@prozone.org>",
+"name": "fastcgi-server",
+"description": "A FastCGI server implementing an API similar to node's HTTP server. Nice for fast switching HTTP -> FCGI.",
+"version": "0.0.2",
+"repository": { },
+"main": "./fastcgi-server",
+"bin": { },
+"dependencies": {
+"fastcgi-parser": ">= 0.1.5"
+},
+"devDependencies": { },
+"optionalDependencies": { },
+"license": "Copyleft",
+"engines": {
+"node": ">=0.10.5"
+},
+"keywords": [
+"http",
+"fastcgi",
+"server"
+]
+}

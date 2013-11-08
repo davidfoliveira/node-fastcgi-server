@@ -5,6 +5,7 @@ var
 
 fastcgi.createServer(function(req,res) {
 	var data = "";
+	req.setEncoding("utf-8");
 	req.on('data',function(chunk){
 //		console.log("Data: ",chunk.toString());
 		data += chunk.toString();

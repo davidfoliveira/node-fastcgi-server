@@ -3,7 +3,6 @@ var
 	net = require('net'),
 	http = require('http'),
 	fastcgi = require('fastcgi-parser'),
-	events = require('events'),
 	util = require('util');
 
 
@@ -20,16 +19,12 @@ function writeSocket(socket, buffer) {
 
 var httpRequest = function(socket){
 
-	events.EventEmitter.call(this);
+	http.IncomingMessage.call(this,socket);
 
-	this.connection = socket;
-	this.url = '';
-	this.headers = {};
 	this._missingData = 0;
 
 };
-
-util.inherits(httpRequest, events.EventEmitter);
+util.inherits(httpRequest, http.IncomingMessage);
 
 
 

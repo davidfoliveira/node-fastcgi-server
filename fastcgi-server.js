@@ -1,3 +1,5 @@
+"use strict";
+
 var
 	fs = require('fs'),
 	net = require('net'),
@@ -15,6 +17,7 @@ function writeSocket(socket, buffer) {
         }
 }
 
+
 // HTTP Request object
 
 var httpRequest = function(socket){
@@ -25,7 +28,6 @@ var httpRequest = function(socket){
 
 };
 util.inherits(httpRequest, http.IncomingMessage);
-
 
 
 // HTTP Response object
@@ -197,9 +199,9 @@ exports.createServer = function(handler){
 		var FCGI_END = fastcgi.constants.record.FCGI_END;
 		var FCGI_STDOUT = fastcgi.constants.record.FCGI_STDOUT;
 
-		socket.ondata = function (buffer, start, end) {
-			parser.execute(buffer, start, end);
-		};
+		socket.on('data',function(buffer){
+			parser.execute(buffer);
+		});
 
 		socket.on("error", function(err) {
 			console.log(err);
@@ -278,7 +280,9 @@ exports.createServer = function(handler){
 			}
 		};
 		parser.onBody = function(chunk,offset,length) {
-			req.emit('data',chunk.slice(offset,length));
+			var b = new Buffer(length-offset);
+			chunk.slice(offset,length).copy(b);
+			req.emit('data',b);
 		};
 	});
 
